@@ -168,12 +168,70 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
       text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+      position: relative;
+      overflow: hidden;
+      animation: casinoGlow 3s infinite;
+    }
+
+    .prizes-button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transform: rotate(45deg);
+      animation: casinoShine 2.5s infinite;
+      pointer-events: none;
     }
 
     .prizes-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
-      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5);
+      border-color: rgba(255, 255, 255, 0.6);
+      animation: casinoGlowHover 1.5s infinite;
+    }
+
+    @keyframes casinoGlow {
+      0%, 100% {
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3),
+                    0 0 20px rgba(255, 193, 7, 0.2);
+      }
+      50% {
+        box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5),
+                    0 0 30px rgba(255, 193, 7, 0.4),
+                    0 0 40px rgba(255, 193, 7, 0.2);
+      }
+    }
+
+    @keyframes casinoGlowHover {
+      0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.5),
+                    0 0 30px rgba(255, 193, 7, 0.3);
+      }
+      50% {
+        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.7),
+                    0 0 40px rgba(255, 193, 7, 0.5),
+                    0 0 60px rgba(255, 193, 7, 0.3);
+      }
+    }
+
+    @keyframes casinoShine {
+      0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      }
+      50% {
+        transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(0%) translateY(0%) rotate(45deg);
+      }
     }
 
     /* Stats Section */

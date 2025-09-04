@@ -4,7 +4,7 @@
       <div class="header-info">
         <h2 class="modal-title">🏆 {{nombreSorteo}}</h2>
         <div class="sorteo-details" *ngIf="sorteoData">
-          <span class="fecha" *ngIf="fechaSorteo">📅 {{fechaSorteo}}</span>
+          <span class="fecha" *ngIf="fechaSorteoFormateada">📅 {{fechaSorteoFormateada}}</span>
           <span class="modalidad" *ngIf="modalidad">🎲 {{modalidad}}</span>
         </div>
       </div>
@@ -48,8 +48,8 @@
       <section class="results-section" *ngIf="!isLoading || premios.length > 0">
         <h3 class="section-title">
           📋 Resultados del Sorteo
-          <span class="sorteo-status" *ngIf="sorteoRealizado && fechaSorteo">
-            - Realizado el {{fechaSorteo}}
+          <span class="sorteo-status" *ngIf="sorteoRealizado && fechaSorteoFormateada">
+            - Realizado el {{fechaSorteoFormateada}}
           </span>
         </h3>
         
@@ -57,12 +57,21 @@
           <div class="no-results">
             <div class="no-results-icon">🎲</div>
             <h4>Sorteo Pendiente</h4>
+            <div class="sorteo-info" *ngIf="sorteoData">
+              <div class="info-item" *ngIf="fechaSorteoFormateada">
+                <strong>📅 Fecha y Hora:</strong> {{fechaSorteoFormateada}}
+              </div>
+              <div class="info-item" *ngIf="modalidad">
+                <strong>🎲 Modalidad:</strong> {{modalidad}}
+              </div>
+            </div>
             <p>Los resultados se mostrarán una vez que se realice el sorteo.</p>
             <p class="note">Los ganadores se actualizarán automáticamente aquí.</p>
-            <p class="link-note" *ngIf="linkSorteo">
-              <strong>Link del sorteo:</strong> 
-              <a [href]="linkSorteo" target="_blank" rel="noopener">{{linkSorteo}}</a>
-            </p>
+            <div class="live-sorteo-section" *ngIf="linkSorteo">
+              <button class="live-button" (click)="openLiveSorteo()" type="button">
+                📺 Ver Sorteo en Vivo
+              </button>
+            </div>
           </div>
         </div>
 

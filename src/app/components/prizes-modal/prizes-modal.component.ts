@@ -94,11 +94,35 @@ export class PrizesModalComponent implements OnInit, OnDestroy {
     return this.sorteoData?.fechaSorteo || '';
   }
 
+  get fechaSorteoFormateada(): string {
+    if (!this.sorteoData?.fechaSorteo) return '';
+    
+    try {
+      const fecha = new Date(this.sorteoData.fechaSorteo);
+      const day = fecha.getDate().toString().padStart(2, '0');
+      const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const year = fecha.getFullYear();
+      const hours = fecha.getHours().toString().padStart(2, '0');
+      const minutes = fecha.getMinutes().toString().padStart(2, '0');
+      
+      return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } catch (error) {
+      return this.sorteoData.fechaSorteo;
+    }
+  }
+
   get modalidad(): string {
     return this.sorteoData?.modalidad || '';
   }
 
   get linkSorteo(): string {
     return this.sorteoData?.linkSorteo || '';
+  }
+
+  openLiveSorteo(): void {
+    const link = this.linkSorteo;
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
   }
 }
