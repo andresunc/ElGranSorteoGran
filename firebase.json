@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/el-gran-sorteo-gran",
+    "public": "dist/el-gran-sorteo-gran/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

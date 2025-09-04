@@ -1,0 +1,104 @@
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Premio, Ganador, SorteoData } from '../../interfaces/raffle.interface';
+import { RaffleService } from '../../services/raffle.service';
+
+@Component({
+  selector: 'app-prizes-modal',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './prizes-modal.component.html',
+  styleUrl: './prizes-modal.component.css'
+})
+export class PrizesModalComponent implements OnInit, OnDestroy {
+  @Input() isOpen = false;
+  @Output() close = new EventEmitter<void>();
+
+  premios: Premio[] = [];
+  ganadores: Ganador[] = [];
+  sorteoData: SorteoData | null = null;
+  isLoading = false;
+  errorMessage: string | null = null;
+
+  private destroy$ = new Subject<void>();
+
+  constructor(private raffleService: RaffleService) {}
+
+  ngOnInit(): void {
+    // Suscribirse a los datos de premios
+    this.raffleService.premios$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(premios => {
+        this.premios = premios;
+      });
+
+    // Suscribirse a los datos de ganadores
+    this.raffleService.ganadores$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(ganadores => {
+        this.ganadores = ganadores;
+      });
+
+    // Suscribirse a los datos del sorteo
+    this.raffleService.sorteoData$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(sorteoData => {
+        this.sorteoData = sorteoData;
+      });
+
+    // Suscribirse al estado de carga
+    this.raffleService.premiosLoading$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(loading => {
+        this.isLoading = loading;
+      });
+
+    // Suscribirse a errores
+    this.raffleService.premiosError$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(error => {
+        this.errorMessage = error;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  get sorteoRealizado(): boolean {
+    return this.sorteoData?.sorteado || false;
+  }
+
+  closeModal(): void {
+    this.close.emit();
+  }
+
+  onOverlayClick(event: Event): void {
+    if (event.target === event.currentTarget) {
+      this.closeModal();
+    }
+  }
+
+  retry(): void {
+    this.raffleService.refreshData();
+  }
+
+  get nombreSorteo(): string {
+    return this.sorteoData?.nombreSorteo || 'El Gran Sorteo Gran';
+  }
+
+  get fechaSorteo(): string {
+    return this.sorteoData?.fechaSorteo || '';
+  }
+
+  get modalidad(): string {
+    return this.sorteoData?.modalidad || '';
+  }
+
+  get linkSorteo(): string {
+    return this.sorteoData?.linkSorteo || '';
+  }
+}

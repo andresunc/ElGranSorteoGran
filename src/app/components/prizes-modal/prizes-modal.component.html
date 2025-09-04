@@ -1,0 +1,111 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="header-info">
+        <h2 class="modal-title">🏆 {{nombreSorteo}}</h2>
+        <div class="sorteo-details" *ngIf="sorteoData">
+          <span class="fecha" *ngIf="fechaSorteo">📅 {{fechaSorteo}}</span>
+          <span class="modalidad" *ngIf="modalidad">🎲 {{modalidad}}</span>
+        </div>
+      </div>
+      <button class="close-button" (click)="closeModal()">✕</button>
+    </div>
+    
+    <div class="modal-content">
+      <!-- Error Message -->
+      <div class="error-message" *ngIf="errorMessage">
+        <div class="error-content">
+          <span class="error-icon">⚠️</span>
+          <span>{{errorMessage}}</span>
+          <button class="retry-button" (click)="retry()">Reintentar</button>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" *ngIf="isLoading && premios.length === 0">
+        <div class="loading-spinner"></div>
+        <p>Cargando información del sorteo...</p>
+      </div>
+
+      <!-- Sección de Premios -->
+      <section class="prizes-section" *ngIf="!isLoading || premios.length > 0">
+        <h3 class="section-title">🎁 Premios del Sorteo</h3>
+        <div class="prizes-grid">
+          <div class="prize-card" *ngFor="let premio of premios">
+            <div class="prize-image">
+              <img [src]="premio.imagen" [alt]="premio.titulo" 
+                   onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjZGRkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJlbWlvPC90ZXh0Pgo8L3N2Zz4='">
+            </div>
+            <div class="prize-info">
+              <h4 class="prize-title">{{premio.titulo}}</h4>
+              <p class="prize-description">{{premio.descripcion}}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección de Resultados -->
+      <section class="results-section" *ngIf="!isLoading || premios.length > 0">
+        <h3 class="section-title">
+          📋 Resultados del Sorteo
+          <span class="sorteo-status" *ngIf="sorteoRealizado && fechaSorteo">
+            - Realizado el {{fechaSorteo}}
+          </span>
+        </h3>
+        
+        <div class="results-container" *ngIf="!sorteoRealizado">
+          <div class="no-results">
+            <div class="no-results-icon">🎲</div>
+            <h4>Sorteo Pendiente</h4>
+            <p>Los resultados se mostrarán una vez que se realice el sorteo.</p>
+            <p class="note">Los ganadores se actualizarán automáticamente aquí.</p>
+            <p class="link-note" *ngIf="linkSorteo">
+              <strong>Link del sorteo:</strong> 
+              <a [href]="linkSorteo" target="_blank" rel="noopener">{{linkSorteo}}</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Sección editable para los ganadores (cuando esté disponible) -->
+        <div class="results-container" *ngIf="sorteoRealizado">
+          <div class="winners-list">
+            <div class="winner-card" *ngFor="let ganador of ganadores">
+              <div class="winner-number">#{{ganador.numeroGanador.toString().padStart(3, '0')}}</div>
+              <div class="winner-info">
+                <h4>{{ganador.premio.titulo}}</h4>
+                <p *ngIf="ganador.nombre || ganador.apellido" class="winner-name">
+                  Ganador: {{ganador.nombre}} {{ganador.apellido}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección para editar ganadores manualmente (comentario para desarrolladores) -->
+        <!--
+        PARA EDITAR GANADORES:
+        Cuando el sorteo esté listo, edita el archivo prizes-modal.component.ts
+        y modifica las siguientes variables:
+        
+        1. Cambiar sorteoRealizado = true;
+        2. Agregar ganadores al array ganadores[], por ejemplo:
+        
+        ganadores: Ganador[] = [
+          {
+            numeroGanador: 123,
+            premio: this.premios[0], // Primer premio
+            nombre: 'Juan Pérez',
+            fechaSorteo: new Date()
+          },
+          {
+            numeroGanador: 456,
+            premio: this.premios[1], // Segundo premio
+            nombre: 'María García',
+            fechaSorteo: new Date()
+          }
+        ];
+        -->
+      </section>
+    </div>
+  </div>
+</div>

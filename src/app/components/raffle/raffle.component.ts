@@ -4,12 +4,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RaffleService } from '../../services/raffle.service';
 import { WhatsAppModalComponent } from '../whatsapp-modal/whatsapp-modal.component';
+import { PrizesModalComponent } from '../prizes-modal/prizes-modal.component';
 import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
 
 @Component({
   selector: 'app-raffle',
   standalone: true,
-  imports: [CommonModule, WhatsAppModalComponent],
+  imports: [CommonModule, WhatsAppModalComponent, PrizesModalComponent],
   template: `
     <div class="raffle-container">
       <!-- Header -->
@@ -17,6 +18,9 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
         <div class="header-content">
           <h1 class="title">El Gran Premio Gran 🏆</h1>
           <p class="subtitle">Números Disponibles</p>
+          <button class="prizes-button" (click)="openPrizesModal()">
+            🏆 Ver Premios y Resultados
+          </button>
         </div>
       </header>
 
@@ -110,6 +114,12 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
       [selectedNumber]="selectedNumber"
       (close)="closeWhatsAppModal()">
     </app-whatsapp-modal>
+
+    <!-- Prizes Modal -->
+    <app-prizes-modal
+      [isOpen]="showPrizesModal"
+      (close)="closePrizesModal()">
+    </app-prizes-modal>
   `,
   styles: [`
     .raffle-container {
@@ -142,8 +152,28 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
     .subtitle {
       color: #e6f0ff;
       font-size: 1.25rem;
-      margin: 0;
+      margin: 0 0 16px;
       font-weight: 400;
+    }
+
+    .prizes-button {
+      background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #000000;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+
+    .prizes-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     /* Stats Section */
@@ -415,6 +445,11 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
         font-size: 1.125rem;
       }
 
+      .prizes-button {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+      }
+
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -452,6 +487,11 @@ import { ParsedTicket, RaffleStats } from '../../interfaces/raffle.interface';
 
       .subtitle {
         font-size: 1rem;
+      }
+
+      .prizes-button {
+        font-size: 0.85rem;
+        padding: 8px 16px;
       }
 
       .stats-grid {
@@ -494,6 +534,7 @@ export class RaffleComponent implements OnInit, OnDestroy {
   isLoading = false;
   showWhatsAppModal = false;
   selectedNumber = 0;
+  showPrizesModal = false;
 
   private destroy$ = new Subject<void>();
 
@@ -542,5 +583,13 @@ export class RaffleComponent implements OnInit, OnDestroy {
 
   retry(): void {
     this.raffleService.refreshData();
+  }
+
+  openPrizesModal(): void {
+    this.showPrizesModal = true;
+  }
+
+  closePrizesModal(): void {
+    this.showPrizesModal = false;
   }
 }

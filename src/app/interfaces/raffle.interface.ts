@@ -27,3 +27,30 @@ export interface WhatsAppContact {
   nombre: string;
   numero: string;
 }
+
+export interface Premio {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  imagen: string;
+}
+
+export interface Ganador {
+  numeroGanador: number;
+  premio: Premio;
+  nombre?: string;
+  apellido?: string;
+  fechaSorteo?: Date;
+}
+
+export interface SorteoData {
+  nombreSorteo: string;
+  linkSorteo: string;
+  fechaSorteo: string;
+  modalidad: string;
+  sorteado: boolean;
+}
+
+export interface PremiosResponse {
+  sPremio: string;
+}
