@@ -33,6 +33,7 @@
         <div class="prizes-grid">
           <div class="prize-card" *ngFor="let premio of premios">
             <div class="prize-image">
+              <div class="prize-badge">{{premio.id}}°</div>
               <img [src]="premio.imagen" [alt]="premio.titulo" 
                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjZGRkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjQ1JSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+UHJlbWlvPC90ZXh0Pgo8L3N2Zz4='">
             </div>
@@ -78,8 +79,10 @@
         <!-- Sección editable para los ganadores (cuando esté disponible) -->
         <div class="results-container" *ngIf="sorteoRealizado">
           <div class="winners-list">
-            <div class="winner-card" *ngFor="let ganador of ganadores">
-              <div class="winner-number">#{{ganador.numeroGanador.toString().padStart(3, '0')}}</div>
+            <div class="winner-card" *ngFor="let ganador of ganadoresOrdenados">
+              <div class="winner-number">
+                <span class="winning-number">N° ganador: #{{ganador.numeroGanador.toString().padStart(3, '0')}}</span>
+              </div>
               <div class="winner-info">
                 <h4>{{ganador.premio.titulo}}</h4>
                 <p *ngIf="ganador.nombre || ganador.apellido" class="winner-name">

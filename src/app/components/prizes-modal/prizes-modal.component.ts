@@ -125,4 +125,8 @@ export class PrizesModalComponent implements OnInit, OnDestroy {
       window.open(link, '_blank', 'noopener,noreferrer');
     }
   }
+
+  get ganadoresOrdenados(): Ganador[] {
+    return [...this.ganadores].sort((a, b) => a.premio.id - b.premio.id);
+  }
 }
