@@ -62,7 +62,6 @@ export class RaffleService {
     { nombre: 'Vero', numero: '+5493513982122' },
     { nombre: 'Fabri', numero: '+5493543512573' },
     { nombre: 'Male', numero: '+5493543611259' },
-    { nombre: 'Fede', numero: '+5493517407733' },
     { nombre: 'Clau', numero: '+5493513740005' }
   ];
 
