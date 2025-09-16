@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test APIs</title>
+</head>
+<body>
+    <h1>Test de APIs</h1>
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        async function testAPI(url, name) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultsDiv.innerHTML += `<h3>${name}: ✅ FUNCIONANDO</h3>`;
+                    resultsDiv.innerHTML += `<p>Status: ${response.status}</p>`;
+                    resultsDiv.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre><hr>`;
+                } else {
+                    resultsDiv.innerHTML += `<h3>${name}: ❌ ERROR</h3>`;
+                    resultsDiv.innerHTML += `<p>Status: ${response.status}</p>`;
+                    resultsDiv.innerHTML += `<p>Error: ${response.statusText}</p><hr>`;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML += `<h3>${name}: ❌ ERROR DE RED</h3>`;
+                resultsDiv.innerHTML += `<p>Error: ${error.message}</p><hr>`;
+            }
+        }
+
+        // Test APIs
+        testAPI('https://test.bizuit.com/agarciaBIZUITDashboardAPI/api/RestFunction/rf_GetNumeros', 'API de Números');
+        testAPI('https://test.bizuit.com/agarciaBIZUITDashboardAPI/api/RestFunction/GetDataPremios', 'API de Premios');
+    </script>
+</body>
+</html>

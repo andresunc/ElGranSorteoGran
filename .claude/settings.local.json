@@ -12,7 +12,17 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(ng generate component:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\interfaces/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\services/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\components\\prizes-modal/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\components\\prizes-modal/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\components\\prizes-modal/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src/**)",
+      "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\components\\raffle/**)",
+      "Bash(npm audit:*)",
+      "Bash(timeout:*)",
+      "WebFetch(domain:elgransorteogran.web.app)"
     ],
     "deny": [],
     "ask": []

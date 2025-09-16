@@ -68,10 +68,13 @@
             </div>
             <p>Los resultados se mostrarán una vez que se realice el sorteo.</p>
             <p class="note">Los ganadores se actualizarán automáticamente aquí.</p>
-            <div class="live-sorteo-section" *ngIf="linkSorteo">
-              <button class="live-button" (click)="openLiveSorteo()" type="button">
+            <div class="live-sorteo-section">
+              <button class="live-button disabled" (click)="mostrarMensajeSorteo()" type="button">
                 📺 Ver Sorteo en Vivo
               </button>
+              <p class="live-sorteo-info">
+                ⏰ El enlace se habilitará cuando comience el sorteo en vivo
+              </p>
             </div>
           </div>
         </div>
