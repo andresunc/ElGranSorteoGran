@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "elgransorteogran"
-  }
+  },
+  "targets": {
+    "elgransorteogran": {
+      "hosting": {
+        "elgransorteogran": [
+          "elgransorteogran"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

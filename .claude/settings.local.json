@@ -22,7 +22,14 @@
       "Read(/D:\\Area de trabajo\\ANGULAR PROJECT\\El Gran Sorteo Gran\\elGranSorteoGran\\src\\app\\components\\raffle/**)",
       "Bash(npm audit:*)",
       "Bash(timeout:*)",
-      "WebFetch(domain:elgransorteogran.web.app)"
+      "WebFetch(domain:elgransorteogran.web.app)",
+      "Bash(firebase projects:list:*)",
+      "Bash(firebase hosting:sites:list:*)",
+      "Bash(firebase hosting:channel:list:*)",
+      "Bash(firebase use:*)",
+      "Bash(firebase target:apply hosting:*)",
+      "Bash(firebase hosting:sites:get:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

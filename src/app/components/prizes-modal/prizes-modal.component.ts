@@ -126,10 +126,6 @@ export class PrizesModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  mostrarMensajeSorteo(): void {
-    alert('El sorteo aún no ha comenzado. El enlace se habilitará cuando comience la transmisión en vivo.\n\n📅 Fecha programada: ' + this.fechaSorteoFormateada + '\n🎲 Modalidad: ' + this.modalidad);
-  }
-
   get ganadoresOrdenados(): Ganador[] {
     return [...this.ganadores].sort((a, b) => a.premio.id - b.premio.id);
   }
