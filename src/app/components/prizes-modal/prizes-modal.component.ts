@@ -121,9 +121,28 @@ export class PrizesModalComponent implements OnInit, OnDestroy {
 
   openLiveSorteo(): void {
     const link = this.linkSorteo;
-    if (link) {
-      window.open(link, '_blank', 'noopener,noreferrer');
+
+    // Si no hay link o es "_blank", mostrar modal informativo
+    if (!link || link.trim() === '' || link.trim() === '_blank') {
+      this.mostrarModalInfoSorteo();
+      return;
     }
+
+    // Si hay un link válido, abrirlo
+    window.open(link, '_blank', 'noopener,noreferrer');
+  }
+
+  mostrarModalInfoSorteo(): void {
+    const mensaje = `🎬 ¡Acceso al Sorteo en Vivo!
+
+📅 El enlace se habilitará el día del sorteo: ${this.fechaSorteoFormateada}
+🎲 Modalidad: ${this.modalidad}
+
+⏰ Una vez que comience la transmisión en vivo, podrás acceder directamente desde este botón.
+
+🏆 ¡No te lo pierdas! Los ganadores se determinarán en tiempo real.`;
+
+    alert(mensaje);
   }
 
   get ganadoresOrdenados(): Ganador[] {
